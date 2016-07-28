@@ -1,0 +1,59 @@
+﻿@using EPiServer.Core
+@using EPiServer.ServiceLocation;
+@using EPiServer.DataAbstraction;
+@model E_Book.Models.Pages.Book
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //CategoryRepository categoryRepository = ServiceLocator.Current.GetInstance<CategoryRepository>();
+    Category c = ServiceLocator.Current.GetInstance<CategoryRepository>().Get(Convert.ToInt32(Model.Category.ToString()));
+
+    string genre = c.Name;
+}
+
+<h2>E-Book Store</h2>
+
+<body>
+    <img src="@Model.Image" class="col-md-3 img-rounded " />
+    <div class="col-md-6">
+    <table class="table table-bordered">
+    <tr>
+        <th>Book Name</th>
+        <td @Html.EditAttributes(x => x.BookName)>
+            @Html.DisplayFor(m => m.BookName)
+        </td>
+    </tr>
+    <tr>
+       <th>Author</th>
+        <td @Html.EditAttributes(x => x.Author)>
+            @Html.DisplayFor(m => m.Author)
+        </td>
+    </tr>
+        <tr>
+            <th>Book Price</th>
+            <td @Html.EditAttributes(x => x.Price)>
+                @Html.DisplayFor(m => m.Price)
+            </td>
+        </tr>
+        <tr>
+            <th>Book Published</th>
+            <td @Html.EditAttributes(x => x.Published)>
+                @Html.DisplayFor(m => m.Published)
+            </td>
+        </tr>
+        <tr>
+            <th>Book Description</th>
+            <td @Html.EditAttributes(x => x.Description)>
+                @Html.DisplayFor(m => m.Description)
+            </td>
+        </tr>
+</table>
+       
+      <a  href="@Url.ContentUrl(@Model.Bookurl)" target="_blank"><input type="button" style="background-color:orangered;border-style:double;color:yellow; font-family :'Segoe Script';font-size:medium" value="Download"/></a>
+        @*<input type="button" style="background-color:orangered;border-style:double;color:yellow; font-family:'Segoe Script';font-size:medium" value="Download" onclick="location.href='@Url.Action("Action", "Book")'" />*@
+        @*<td><a href="#">Read</a></td>
+        <td><a href="#">Download</a></td>*@
+        </div>
+    </body>
+
